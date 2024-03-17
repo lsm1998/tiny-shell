@@ -7,9 +7,12 @@
 
 #include <string>
 #include <unistd.h>
+#include <vector>
 #include "define.h"
 
 using String = std::string;
+template<typename T>
+using Vector = std::vector<T>;
 
 class Command
 {
