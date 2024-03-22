@@ -6,6 +6,7 @@
 
 int main(int argc, char **argv)
 {
+    using namespace tinyShell;
     TinyShell tinyShell(argc, argv);
     return tinyShell.loopHandler();
 }

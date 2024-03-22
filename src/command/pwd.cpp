@@ -5,16 +5,19 @@
 #include "command.h"
 #include "system_api.h"
 
-class PwdCommand : public Command
+namespace tinyShell
 {
-public:
-    void execute(Vector<Vector<String>> args) override
+    class PwdCommand : public Command
     {
-        std::cout << SystemApi::getPath() << std::endl;
-    }
+    public:
+        void execute(Vector<Vector<String>> args) override
+        {
+            std::cout << SystemApi::getPath() << std::endl;
+        }
 
-    [[nodiscard]] String name() const override
-    {
-        return "pwd";
-    }
-};
+        [[nodiscard]] String name() const override
+        {
+            return "pwd";
+        }
+    };
+}

@@ -6,50 +6,48 @@
 #define TINY_SHELL_TINY_SHELL_H
 
 #include "command.h"
-#include "state.h"
 #include "system_api.h"
 #include "context.h"
 
-class TinyShell
+namespace tinyShell
 {
-public:
-    explicit TinyShell() : TinyShell(0, nullptr)
-    {};
 
-    explicit TinyShell(int argc, char **argv);
+    class TinyShell
+    {
+    public:
+        explicit TinyShell() : TinyShell(0, nullptr)
+        {};
 
-    int loopHandler();
+        explicit TinyShell(int argc, char **argv);
 
-private:
-    void printCmdLinePrefix();
+        int loopHandler();
 
-    String getCmdLine();
+    private:
+        void printCmdLinePrefix();
 
-    void backSpace(size_t &cursorPos, String &cmdLine);
+        String getCmdLine();
 
-    void cursorMoveHead(size_t &cursorPos);
+        void backSpace(size_t &cursorPos, String &cmdLine);
 
-    void cursorMoveLeft(size_t &cursorPos, bool &convert);
+        void cursorMoveHead(size_t &cursorPos);
 
-    void cursorMoveRight(size_t &cursorPos, int cmdLineLen, bool &convert);
+        void cursorMoveLeft(size_t &cursorPos, bool &convert);
 
-    void printChar(char ch, size_t &cursorPos, String &cmdLine);
+        void cursorMoveRight(size_t &cursorPos, int cmdLineLen, bool &convert);
 
-    void clearPrefixCmdLine(size_t &cursorPos, String &cmdLine);
+        void printChar(char ch, size_t &cursorPos, String &cmdLine);
 
-    void showPreCmd(size_t &curHistoryCmdPos, size_t &cursorPos, String &cmdLine, bool &convert);
+        void clearPrefixCmdLine(size_t &cursorPos, String &cmdLine);
 
-    void clearCmdLine(size_t &cursorPos, String &cmdLine);
+        void showPreCmd(size_t &curHistoryCmdPos, size_t &cursorPos, String &cmdLine, bool &convert);
 
-    void showNextCmd(size_t &curHistoryCmdPos, size_t &cursorPos, String &cmdLine, bool &convert);
+        void clearCmdLine(size_t &cursorPos, String &cmdLine);
 
-    static void printOutput(int output);
+        void showNextCmd(size_t &curHistoryCmdPos, size_t &cursorPos, String &cmdLine, bool &convert);
+    };
 
-    void myPipe(const Vector<String> &cmd, int &input, int &output, pid_t &childPid);
-};
+    extern void initEnvs(int argc, char **argv);
 
-extern void initEnvs(int argc, char **argv);
-
-extern void loopHandler();
-
+    extern void loopHandler();
+}
 #endif //TINY_SHELL_TINY_SHELL_H

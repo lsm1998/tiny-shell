@@ -4,19 +4,22 @@
 
 #include "command.h"
 
-class ExitCommand : public Command
+namespace tinyShell
 {
-public:
-    void execute(Vector<Vector<String>> args) override
+    class ExitCommand : public Command
     {
-        auto attr = TinyShellContext::getInstance()->getAttr();
-        // 恢复终端属性
-        tcsetattr(STDIN_FILENO, TCSANOW, std::get<0>(attr));
-        exit(0);
-    }
+    public:
+        void execute(Vector<Vector<String>> args) override
+        {
+            auto attr = TinyShellContext::getInstance()->getAttr();
+            // 恢复终端属性
+            tcsetattr(STDIN_FILENO, TCSANOW, std::get<0>(attr));
+            exit(0);
+        }
 
-    [[nodiscard]] String name() const override
-    {
-        return "exit";
-    }
-};
+        [[nodiscard]] String name() const override
+        {
+            return "exit";
+        }
+    };
+}

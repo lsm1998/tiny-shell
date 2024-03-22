@@ -4,19 +4,22 @@
 
 #include "command.h"
 
-class HistoryCommand : public Command
+namespace tinyShell
 {
-public:
-    void execute(Vector<Vector<String>> args) override
+    class HistoryCommand : public Command
     {
-        for (const auto &item: TinyShellContext::getInstance()->getHistoryCmdLines())
+    public:
+        void execute(Vector<Vector<String>> args) override
         {
-            std::cout << item.index << " " << item.execTime << " " << item.cmdLine << std::endl;
+            for (const auto &item: TinyShellContext::getInstance()->getHistoryCmdLines())
+            {
+                std::cout << item.index << " " << item.execTime << " " << item.cmdLine << std::endl;
+            }
         }
-    }
 
-    [[nodiscard]] String name() const override
-    {
-        return "history";
-    }
-};
+        [[nodiscard]] String name() const override
+        {
+            return "history";
+        }
+    };
+}

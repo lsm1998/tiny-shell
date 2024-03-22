@@ -4,50 +4,53 @@
 
 #include "context.h"
 
-void TinyShellContext::setEnv(const String &key, const String &value)
+namespace tinyShell
 {
-    this->envs[key] = value;
-}
-
-String TinyShellContext::getEnv(const String &key) const
-{
-    auto val = this->envs.find(key);
-    if (val == this->envs.end())
+    void TinyShellContext::setEnv(const String &key, const String &value)
     {
-        return "";
+        this->envs[key] = value;
     }
-    return val->second;
-}
 
-void TinyShellContext::updatePwd(const String &pwd)
-{
-    envs["OLDPWD"] = envs["PWD"];
-    envs["PWD"] = pwd;
-}
+    String TinyShellContext::getEnv(const String &key) const
+    {
+        auto val = this->envs.find(key);
+        if (val == this->envs.end())
+        {
+            return "";
+        }
+        return val->second;
+    }
 
-Tuple2<Termios *, Termios *> TinyShellContext::getAttr() const
-{
-    return {this->oldAttr, this->newAttr};
-}
+    void TinyShellContext::updatePwd(const String &pwd)
+    {
+        envs["OLDPWD"] = envs["PWD"];
+        envs["PWD"] = pwd;
+    }
 
-Vector<BaseCommand> TinyShellContext::getHistoryCmdLines() const
-{
-    return this->historyCmdLines;
-}
+    Tuple2<Termios *, Termios *> TinyShellContext::getAttr() const
+    {
+        return {this->oldAttr, this->newAttr};
+    }
 
-std::unordered_map <String, String> TinyShellContext::getEnvs() const
-{
-    return this->envs;
-}
+    Vector<BaseCommand> TinyShellContext::getHistoryCmdLines() const
+    {
+        return this->historyCmdLines;
+    }
 
-TinyShellContext::TinyShellContext()
-{
-    this->oldAttr = new Termios;
-    this->newAttr = new Termios;
-}
+    std::unordered_map <String, String> TinyShellContext::getEnvs() const
+    {
+        return this->envs;
+    }
 
-TinyShellContext::~TinyShellContext()
-{
-    delete this->oldAttr;
-    delete this->newAttr;
+    TinyShellContext::TinyShellContext()
+    {
+        this->oldAttr = new Termios;
+        this->newAttr = new Termios;
+    }
+
+    TinyShellContext::~TinyShellContext()
+    {
+        delete this->oldAttr;
+        delete this->newAttr;
+    }
 }

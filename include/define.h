@@ -17,14 +17,27 @@
 #define WINDOWS_OS
 #endif
 
-using String = std::string;
-template<class T>
-using Vector = std::vector<T>;
-template<class K, class V>
-using Tuple2 = std::tuple<K, V>;
-using Termios = struct termios;
+#ifdef LINUX_OS
+#include <termios.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <sys/time.h>
+#elif defined(WINDOWS_OS)
+#include <Windows.h>
+#elif defined(MAC_OS)
+#endif
 
-// shell name
-constexpr char *SHELL_NAME = (char *) "tinyShell";
+namespace tinyShell
+{
+    using String = std::string;
+    template<class T>
+    using Vector = std::vector<T>;
+    template<class K, class V>
+    using Tuple2 = std::tuple<K, V>;
+    using Termios = struct termios;
+
+    // shell name
+    constexpr char *SHELL_NAME = (char *) "tinyShell";
+}
 
 #endif //TINY_SHELL_DEFINE_H

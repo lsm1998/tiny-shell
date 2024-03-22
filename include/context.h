@@ -5,62 +5,61 @@
 #ifndef TINY_SHELL_CONTEXT_H
 #define TINY_SHELL_CONTEXT_H
 
-#include <termios.h>
 #include <cstdlib>
 #include <unordered_map>
 #include "define.h"
 #include "command.h"
 
-class BaseCommand;
-
-class TinyShellContext
+namespace tinyShell
 {
-private:
-    struct termios *newAttr{};
-    struct termios *oldAttr{};
-    size_t historyCmdPos = 0;  // 当前历史命令在historyCmdLines的下标
-    std::unordered_map <String, String> envs = {};  // 环境变量列表
-    Vector<BaseCommand> historyCmdLines;
+    class BaseCommand;
 
-private:
-    TinyShellContext();
-
-public:
-    TinyShellContext(const TinyShellContext &) = delete;
-
-    TinyShellContext(const TinyShellContext &&) = delete;
-
-    ~TinyShellContext();
-
-    static TinyShellContext *getInstance()
+    class TinyShellContext
     {
-        static TinyShellContext singleton;
-        static CG cg;
-        return &singleton;
-    }
+    private:
+        Termios *newAttr{};
+        Termios *oldAttr{};
+        size_t historyCmdPos = 0;  // 当前历史命令在historyCmdLines的下标
+        std::unordered_map<String, String> envs = {};  // 环境变量列表
+        Vector<BaseCommand> historyCmdLines;
 
-    void setEnv(const String &key, const String &value);
+    private:
+        TinyShellContext();
 
-    String getEnv(const String &key) const;
-
-    void updatePwd(const String &pwd);
-
-    Tuple2<Termios*, Termios*> getAttr() const;
-
-    // void setAttr(const Tuple2<Termios, Termios> &attr);
-
-    Vector<BaseCommand> getHistoryCmdLines() const;
-
-    std::unordered_map <String, String> getEnvs() const;
-
-    class CG
-    {
     public:
-        ~CG()
-        {
-            delete TinyShellContext::getInstance();
-        }
-    };
-};
+        TinyShellContext(const TinyShellContext &) = delete;
 
+        TinyShellContext(const TinyShellContext &&) = delete;
+
+        ~TinyShellContext();
+
+        static TinyShellContext *getInstance()
+        {
+            static TinyShellContext singleton;
+            static CG cg;
+            return &singleton;
+        }
+
+        void setEnv(const String &key, const String &value);
+
+        String getEnv(const String &key) const;
+
+        void updatePwd(const String &pwd);
+
+        Tuple2<Termios *, Termios *> getAttr() const;
+
+        Vector<BaseCommand> getHistoryCmdLines() const;
+
+        std::unordered_map<String, String> getEnvs() const;
+
+        class CG
+        {
+        public:
+            ~CG()
+            {
+                delete TinyShellContext::getInstance();
+            }
+        };
+    };
+}
 #endif //TINY_SHELL_CONTEXT_H

@@ -4,19 +4,22 @@
 
 #include "command.h"
 
-class EnvCommand : public Command
+namespace tinyShell
 {
-public:
-    void execute(Vector<Vector<String>> args) override
+    class EnvCommand : public Command
     {
-        for (const auto &item: TinyShellContext::getInstance()->getEnvs())
+    public:
+        void execute(Vector<Vector<String>> args) override
         {
-            std::cout << item.first << "=" << item.second << std::endl;
+            for (const auto &item: TinyShellContext::getInstance()->getEnvs())
+            {
+                std::cout << item.first << "=" << item.second << std::endl;
+            }
         }
-    }
 
-    [[nodiscard]] String name() const override
-    {
-        return "env";
-    }
-};
+        [[nodiscard]] String name() const override
+        {
+            return "env";
+        }
+    };
+}
