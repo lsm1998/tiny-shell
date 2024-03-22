@@ -20,7 +20,7 @@ namespace tinyShell
         Termios *newAttr{};
         Termios *oldAttr{};
         size_t historyCmdPos = 0;  // 当前历史命令在historyCmdLines的下标
-        std::unordered_map<String, String> envs = {};  // 环境变量列表
+        std::unordered_map <String, String> envs = {};  // 环境变量列表
         Vector<BaseCommand> historyCmdLines;
 
     private:
@@ -50,7 +50,13 @@ namespace tinyShell
 
         Vector<BaseCommand> getHistoryCmdLines() const;
 
-        std::unordered_map<String, String> getEnvs() const;
+        std::unordered_map <String, String> getEnvs() const;
+
+        size_t getHistoryCmdPos() const;
+
+        void pushHistoryCmd(const BaseCommand& historyCmd);
+
+        void incrHistoryCmdPos();
 
         class CG
         {

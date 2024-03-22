@@ -53,4 +53,19 @@ namespace tinyShell
         delete this->oldAttr;
         delete this->newAttr;
     }
+
+    size_t TinyShellContext::getHistoryCmdPos() const
+    {
+        return this->historyCmdPos;
+    }
+
+    void TinyShellContext::incrHistoryCmdPos()
+    {
+        this->historyCmdPos++;
+    }
+
+    void TinyShellContext::pushHistoryCmd(const BaseCommand &historyCmd)
+    {
+        this->historyCmdLines.push_back(historyCmd);
+    }
 }

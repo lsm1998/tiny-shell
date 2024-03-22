@@ -8,8 +8,6 @@
 
 namespace tinyShell
 {
-    Vector<BaseCommand> historyCmdLines = {};
-
     void parserToken(String &cmdLine, Vector<String> &tokens)
     {
         int32_t status = INIT;
@@ -125,14 +123,5 @@ namespace tinyShell
         return singleExternalCmd;
     }
 
-    Command::~Command()
-    {
-        // 设置历史命令
-        if (cmdLine.empty()) return; // 空命令不记录
-        struct timeval curTime{};
-        char temp[100] = {0};
-        gettimeofday(&curTime, nullptr);
-        strftime(temp, 99, "%F %T", localtime(&curTime.tv_sec));
-        historyCmdLines.push_back(BaseCommand{cmdLine, index, execTime});
-    }
+    Command::~Command() = default;
 }

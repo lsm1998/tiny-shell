@@ -23,7 +23,7 @@ namespace tinyShell
         int loopHandler();
 
     private:
-        void printCmdLinePrefix();
+        static void printCmdLinePrefix();
 
         String getCmdLine();
 

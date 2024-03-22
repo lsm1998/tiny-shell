@@ -35,6 +35,8 @@ namespace tinyShell
         tcsetattr(STDIN_FILENO, TCSANOW, newAttr);  // 设置终端属性
     }
 
+    void saveHistory(const String &cmdLine);
+
     int TinyShell::loopHandler()
     {
         while (true)
@@ -54,8 +56,28 @@ namespace tinyShell
             }
             // 执行命令行
             command->execute(commands);
+            // 保存历史记录
+            saveHistory(cmdLine);
         }
         return 0;
+    }
+
+    void saveHistory(const String &cmdLine)
+    {
+        auto context = TinyShellContext::getInstance();
+
+        if (cmdLine.empty()) return;  // 空命令不记录
+        struct timeval curTime{};
+        char temp[100] = {0};
+        gettimeofday(&curTime, nullptr);
+        strftime(temp, 99, "%F %T", localtime(&curTime.tv_sec));
+        BaseCommand historyCmd{};
+
+        historyCmd.index = context->getHistoryCmdPos();
+        context->incrHistoryCmdPos();
+        historyCmd.execTime = temp;
+        historyCmd.cmdLine = cmdLine;
+        context->pushHistoryCmd(historyCmd);
     }
 
     void TinyShell::printCmdLinePrefix()
