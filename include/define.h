@@ -25,6 +25,9 @@
 #elif defined(WINDOWS_OS)
 #include <Windows.h>
 #elif defined(MAC_OS)
+#include <sys/termios.h>
+#include <sys/time.h>
+#include <libgen.h>
 #endif
 
 namespace tinyShell

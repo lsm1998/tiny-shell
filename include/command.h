@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <map>
 #include <cstring>
+#include <unistd.h>
 #include "define.h"
 #include "context.h"
 
