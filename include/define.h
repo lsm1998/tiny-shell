@@ -23,7 +23,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 #elif defined(WINDOWS_OS)
-#include <Windows.h>
+#include "windows_api.h"
 #elif defined(MAC_OS)
 #endif
 
@@ -34,8 +34,9 @@ namespace tinyShell
     using Vector = std::vector<T>;
     template<class K, class V>
     using Tuple2 = std::tuple<K, V>;
+#if (defined LINUX_OS) | (defined MAC_OS)
     using Termios = struct termios;
-
+#endif
     // shell name
     constexpr char *SHELL_NAME = (char *) "tinyShell";
 }

@@ -10,4 +10,8 @@ add_subdirectory(src)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
-target_link_libraries(${PROJECT_NAME} pthread srclib utilslib commandlib)
+target_link_libraries(${PROJECT_NAME} srclib utilslib commandlib)
+
+if(WIN32)
+    target_link_libraries(${PROJECT_NAME} Shell32.lib)
+endif()

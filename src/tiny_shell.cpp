@@ -12,6 +12,7 @@ namespace tinyShell
     TinyShell::TinyShell(int argc, char **argv)
     {
         auto context = TinyShellContext::getInstance();
+#if defined(LINUX_OS) | defined(MAC_OS)
         while (argv && argv[++argc])
         {
             // 命令行参数之后就是环境变量
@@ -22,6 +23,7 @@ namespace tinyShell
                 context->setEnv(item.substr(0, pos), item.substr(pos + 1));
             }
         }
+#endif
         context->setEnv("SHELL", SHELL_NAME);
         // 调用setenv直接更新SHELL这个环境变量
         setenv("SHELL", SHELL_NAME, 1);
@@ -31,7 +33,7 @@ namespace tinyShell
         tcgetattr(STDIN_FILENO, oldAttr);  // 获取终端属性
 
         auto newAttr = std::get<0>(attr);
-        newAttr->c_lflag &= ~(ICANON | ECHO);  // 关闭标准输入模式和回显
+        newAttr->c_cflag &= ~(ICANON | ECHO);  // 关闭标准输入模式和回显
         tcsetattr(STDIN_FILENO, TCSANOW, newAttr);  // 设置终端属性
     }
 

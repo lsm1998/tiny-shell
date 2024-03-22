@@ -47,7 +47,7 @@ namespace tinyShell
             }
 #elif defined(WINDOWS_OS)
             DWORD bytesRead;
-            while (ReadFile((void *) output, &c, 1, &bytesRead, NULL) && bytesRead > 0)
+            while (ReadFile(&output, &c, 1, &bytesRead, NULL) && bytesRead > 0)
             {
                 std::cout << c;
             }

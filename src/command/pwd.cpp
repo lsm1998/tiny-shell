@@ -12,7 +12,7 @@ namespace tinyShell
     public:
         void execute(Vector<Vector<String>> args) override
         {
-            std::cout << SystemApi::getPath() << std::endl;
+            std::cout << "我的" << SystemApi::getPath() << std::endl;
         }
 
         [[nodiscard]] String name() const override
