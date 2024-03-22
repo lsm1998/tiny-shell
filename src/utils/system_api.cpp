@@ -5,9 +5,7 @@
 #include "system_api.h"
 
 #if (defined  LINUX_OS) || (defined  MAC_OS)
-
 #include <unistd.h>
-
 #elif WINDOWS_OS
 #include <direct.h>
 #endif
