@@ -84,7 +84,7 @@ namespace tinyShell
     {
         auto context = TinyShellContext::getInstance();
         String pwd = SystemApi::getPath();
-        std::cout << pwd << std::endl;
+        // std::cout << pwd << std::endl;
         String user = context->getEnv("USER");
         String hostName = context->getEnv("HOSTNAME");
         String base;
@@ -142,7 +142,7 @@ namespace tinyShell
             }
             if (ch == '\n')
             {
-                putchar(ch);
+                // putchar(ch);
                 return cmdLine;
             }
             if (convert && ch == 'A')
